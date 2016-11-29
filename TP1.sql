@@ -220,3 +220,16 @@ SPOOL OFF;
 
 @grant.sql
 
+
+-- Question 2.5.1
+
+CREATE OR REPLACE TRIGGER dateInde
+AFTER INSERT OR UPDATE
+  ON politics
+FOR EACH ROW
+  BEGIN
+    IF (SYSDATE < :NEW.Independence)
+    THEN
+      RAISE_APPLICATION_ERROR(-20000, 'Date future');
+    END IF;
+  END;
